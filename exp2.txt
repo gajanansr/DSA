@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+void Linear_search(struct student SEIT[], int size, string name);
+void Bubble_sort(struct student SEIT[], int size);
+void display(struct student SEIT[], int size); 
+
+struct student{
+    string name;
+    int roll_no;
+    float sgpa;
+};
+
+int main(){
+    int size, i, roll_no, choice;
+    string name;
+    float sgpa;
+
+    cout<<"Enter number of students: ";
+    cin>>size;
+    student SEIT[size];
+
+    for(i = 0; i < size; i++){
+        cout<<"Enter name: ";
+        cin>>name;
+        SEIT[i].name = name;
+        cout<<"Enter roll number: ";
+        cin>>roll_no;
+        SEIT[i].roll_no = roll_no;
+        cout<<"Enter sgpa: ";
+        cin>>sgpa;
+        SEIT[i].sgpa = sgpa;
+        display(SEIT, i+1);
+    }
+    do{  
+        cout<<"1.Bubble sort(To sort name alphabetically)\n2.Linear Search(To search name)\n3. Exit\n\nEnter your choice : ";
+        cin>>choice;
+        switch(choice){
+            case 1:
+                Bubble_sort(SEIT, size);
+                display(SEIT, size);
+                break;
+            case 2:
+                cout<<"Enter name to search"<<endl;
+                cin>>name;
+                Linear_search(SEIT, size, name);
+                break;
+            case 3:
+                break;
+            default:
+                cout<<"!!!!Invalid choice!!!!";
+        }
+    }while(choice != 5);
+
+    return 0;
+}
+
+void display(struct student SEIT[], int size){
+    cout<<"R-No.\tNAME\t  SGPA\n\n";
+    for(int i = 0; i < size; i++){
+        cout<<SEIT[i].roll_no<<"\t"<<SEIT[i].name<<"\t  "<<SEIT[i].sgpa<<endl;
+    }
+}
+
+void Bubble_sort(struct student SEIT[], int size){
+    int i, j, n;
+    student temp[1];
+
+    for(i = 0; i < size - 1; i++){
+        for(j = 0; j < size - i - 1; j++){
+            if(SEIT[j].name > SEIT[j+1].name){
+                temp[0] = SEIT[j];
+                SEIT[j] = SEIT[j+1];
+                SEIT[j+1] = temp[0];
+            }
+        }
+    }
+}
+
+void Linear_search(struct student SEIT[], int size, string name){
+    int i;
+    for (i=0; i<size; i++){
+        if (SEIT[i].name == name){
+            cout<<"R-No.\tNAME\t  SGPA\n\n";
+            cout<<SEIT[i].roll_no<<"\t"<<SEIT[i].name<<"\t  "<<SEIT[i].sgpa<<endl;
+            break;
+        }
+
+        if (i == size-1){
+            cout<<name<<" is not found.";
+        }    
+    }
+}

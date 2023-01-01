@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+void Insertion_sort(struct student SEIT[], int size);
+void Binary_search(struct student SEIT[], int size, int search);
+void display(struct student SEIT[], int size); 
+
+struct student{
+    string name;
+    int roll_no;
+    float sgpa;
+};
+
+int main(){
+    int size, i, roll_no, choice;
+    string name;
+    float sgpa;
+
+    cout<<"Enter number of students: ";
+    cin>>size;
+    student SEIT[size];
+
+    for(i = 0; i < size; i++){
+        cout<<"Enter name: ";
+        cin>>name;
+        SEIT[i].name = name;
+        cout<<"Enter roll number: ";
+        cin>>roll_no;
+        SEIT[i].roll_no = roll_no;
+        cout<<"Enter sgpa: ";
+        cin>>sgpa;
+        SEIT[i].sgpa = sgpa;
+        display(SEIT, i+1);
+    }
+    do{  
+        cout<<"1.Binary Search(To search roll number)\n2.Insertion sort(To sort roll number numerically)\n\nEnter your choice : ";
+        cin>>choice;
+        switch(choice){
+            case 1:
+                Insertion_sort(SEIT, size);
+                cout<<"Enter Roll number to search"<<endl;
+                cin>>roll_no;
+                Binary_search(SEIT, size, roll_no);
+                break;            
+            case 2:
+                Insertion_sort(SEIT, size);
+                display(SEIT, size);
+                break;            
+            case 3:
+                break;
+            default:
+                cout<<"!!!!Invalid choice!!!!";
+        }
+    }while(choice != 3);
+    return 0;
+}
+
+void display(struct student SEIT[], int size){
+    cout<<"R-No.\tNAME\t  SGPA\n\n";
+    for(int i = 0; i < size; i++){
+        cout<<SEIT[i].roll_no<<"\t"<<SEIT[i].name<<"\t  "<<SEIT[i].sgpa<<endl;
+    }
+}
+
+void Binary_search(struct student SEIT[], int size, int roll_no){
+    int lower, upper, mid, i;
+    lower = 0;
+    upper = size-1;
+
+    while(lower <= upper){
+        mid = (upper + lower)/2;
+        if(SEIT[mid].roll_no == roll_no){
+            cout<<"R-No.\tNAME\t  SGPA\n\n";
+            cout<<SEIT[mid].roll_no<<"\t"<<SEIT[mid].name<<"\t  "<<SEIT[mid].sgpa<<endl;
+            break;
+        }
+        else if(roll_no  > SEIT[mid].roll_no){
+            lower = mid + 1;
+        }
+        else{
+            upper = mid - 1;
+        }
+
+        if (lower > upper){
+            cout<<roll_no<<" not found.\n";
+        }
+    }
+}
+
+void Insertion_sort(struct student SEIT[], int size){
+    int temp1, i, j;
+    student temp[1];
+
+    for(i = 0; i < size; i++){
+        temp1 = SEIT[i].roll_no;
+        temp[0] = SEIT[i];
+        for(j = i-1; j >= 0 && SEIT[j].roll_no > temp1; j-- ){
+            SEIT[j+1] = SEIT[j];
+            SEIT[j] = temp[0];
+        }
+    }
+}
