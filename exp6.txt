@@ -89,20 +89,37 @@ struct node *deleteNode(struct node *root, int key)
 int main()
 {
     struct node *root = NULL;
-    root = insert(root, 8);
-    root = insert(root, 3);
-    root = insert(root, 1);
-    root = insert(root, 6);
-    root = insert(root, 7);
-    root = insert(root, 10);
-    root = insert(root, 14);
-    root = insert(root, 4);
-
-    cout << "Inorder traversal: ";
-    inorder(root);
-
-    cout << "\nAfter deleting 10\n";
-    root = deleteNode(root, 10);
-    cout << "Inorder traversal: ";
-    inorder(root);
+    int choice;
+    int a;
+    char ch;
+    
+    do{
+        cout<<"\n1.Insert\n2.Delete\n3.Inorder traversal\n4.Exit\n\nEnter your choice : ";
+        cin>>choice;
+        switch (choice)
+        {
+        case 1:
+            cout<<"\nEnter the element to insert ; ";
+            cin>>a;
+            root=insert(root,a);
+            break;
+        case 2:
+            cout<<"\nEnter the value to delete : ";
+            cin>>a;
+            root=deleteNode(root,a);
+            break;
+        case 3:
+            cout<<"\nInorder traversal : ";
+            inorder(root);
+            break;
+        case 4:
+            exit(0);
+            break;
+        default:
+            cout<<"!! INVALID INPUT !!";
+            break;
+        }
+        cout<<"\n\nCONTINUE(Y/N) : ";
+        cin>>ch;
+    }while(ch=='y' || ch=='Y');
 }
